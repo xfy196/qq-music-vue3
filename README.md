@@ -4,7 +4,7 @@
 
 基于 VUE3+TS 开发的音乐播放器，界面模仿QQ音乐mac客户端。
 
-在线体验：[https://smallruraldog.github.io/vue3-music](https://smallruraldog.github.io/vue3-music)
+在线体验：[https://xfy196.github.io/qq-music-vue3](https://xfy196.github.io/qq-music-vue3)
 
 将浏览器大小设置成1050*670，体验效果更好！界面是自适应的，使用[tailwindcss.com](https://www.tailwindcss.com)来实现
 
