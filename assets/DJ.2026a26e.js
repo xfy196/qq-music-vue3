@@ -1,0 +1,1 @@
+import{_ as e}from"./plugin-vue_export-helper.21dcd24c.js";import{h as t,i as r}from"./vendor.6b1cfc97.js";const c={},o={class:"text-center"};function s(n,_){return t(),r("div",o," \u6B63\u5728\u7814\u53D1\u4E2D ")}var i=e(c,[["render",s]]);export{i as default};
