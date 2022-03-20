@@ -1,9 +1,10 @@
 import {defineStore, storeToRefs} from "pinia";
 import {useDetail, useSongUrl} from "@/utils/api";
-import {onMounted, onUnmounted, toRefs, watch} from "vue";
+import {onMounted, onUnmounted, watch} from "vue";
 import type {Song} from "@/models/song";
 import type {SongUrl} from "@/models/song_url";
-
+import {ElMessage} from "element-plus"
+import "element-plus/theme-chalk/el-message.css"
 const KEYS = {
     volume: 'PLAYER-VOLUME'
 }
@@ -101,6 +102,11 @@ export const usePlayerStore = defineStore({
                 this.songDetail()
             }).catch(res => {
                 console.log(res)
+                ElMessage({
+                    type: "error",
+                    message: "无法播放",
+                    duration: 2000
+                })
             })
         },
         //播放结束

@@ -1,15 +1,19 @@
 <template>
   <ElScrollbar>
-    <div class="mt-10 pl-6 pr-6 space-y-1.5" v-for="menuItem in menus">
+    <div
+      class="mt-10 pl-6 pr-6 space-y-1.5"
+      :key="menuItem.name"
+      v-for="menuItem in menus"
+    >
       <div class="menu-title text-main">{{ menuItem.name }}</div>
       <div
-          class="menu-item hover-bg-main text-main"
-          v-for="menu in menuItem.menus"
-          :key="menu.key"
-          :class="{ 'active': currentKey === menu.key }"
-          @click="click(menu)"
+        class="menu-item hover-bg-main text-main"
+        v-for="menu in menuItem.menus"
+        :key="menu.key"
+        :class="{ active: currentKey === menu.key }"
+        @click="click(menu)"
       >
-        <IconPark :icon="menu.icon" size="18" :theme="menu.theme"/>
+        <IconPark :icon="menu.icon" size="18" :theme="menu.theme" />
         <span class="ml-1">{{ menu.name }}</span>
       </div>
     </div>
@@ -17,13 +21,10 @@
 </template>
 
 <script setup lang="ts">
-
-
-import {userMenu} from "@/components/layout/menu/useMenu";
+import { userMenu } from "@/components/layout/menu/useMenu";
 import IconPark from "@/components/common/IconPark.vue";
 
-const {menus, currentKey, click} = userMenu()
-
+const { menus, currentKey, click } = userMenu();
 </script>
 
 

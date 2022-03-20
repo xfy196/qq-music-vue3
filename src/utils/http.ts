@@ -1,5 +1,6 @@
 import axios, {type AxiosRequestConfig} from "axios";
-
+import {ElMessage} from "element-plus"
+import "element-plus/theme-chalk/el-message.css"
 axios.defaults.baseURL = localStorage.getItem('BASE_URL')?.toString();
 axios.defaults.timeout = 20 * 1000;
 axios.defaults.maxBodyLength = 5 * 1024 * 1024;
@@ -25,7 +26,14 @@ axios.interceptors.response.use(
         return response;
     },
     function (error) {
-        return Promise.reject(error);
+        let response = error.response
+        if(response.status === 301){
+            ElMessage({
+                type: "warning",
+                message: response.data.msg
+            })
+        }
+        return Promise.reject(error.response);
     }
 );
 

@@ -34,15 +34,20 @@
         </div>
       </div>
     </div>
-    <div class="grid grid-flow-row grid-cols-3 gap-5 mt-5">
+    <div v-show="isLogin" class="grid grid-flow-row grid-cols-3 gap-5 mt-5">
       <div v-for="{data} in videoList" :key="data.vid">
         <CoverPlay :pic-url="data.coverUrl" video/>
       </div>
+    </div>
+    <div class=" mt-4 w-full" v-if="!isLogin">
+      <iframe class="w-full" height="500" src="//player.bilibili.com/player.html?aid=926106212&bvid=BV1qT4y1J74A&cid=203303939&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+      <div class=" mt-4 text-center">疫情无情，人间有情，我们一起加油。想要看到音乐视频需要登录哦😯</div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import {storeToRefs} from "pinia"
 import {Right} from "@icon-park/vue-next"
 import {useVideoStore} from '@/stores/video';
 import {onMounted, ref, toRefs} from 'vue';
@@ -50,22 +55,24 @@ import IconPark from '@/components/common/IconPark.vue';
 import type {Video} from "@/models/video";
 import {useVideoGroup} from "@/utils/api";
 import CoverPlay from "@/components/common/CoverPlay.vue";
-
+import {useUserStore} from "@/stores/user"
 
 const {videoGroup} = toRefs(useVideoStore())
 const {getVideoGroup} = useVideoStore()
-
+const userStore = useUserStore()
+const {isLogin} = storeToRefs(userStore)
 const videoList = ref<Video[]>([])
-
 const getData = async () => {
-
-  videoList.value = await useVideoGroup()
+  try {
+    videoList.value = await useVideoGroup()
+  } catch (error) {
+    // 
+  }
 
 }
 
 onMounted(() => {
   getVideoGroup()
-
   getData()
 })
 

@@ -8,7 +8,7 @@
         </el-tabs>
       </div>
     </el-affix>
-    <div class="mt-5">
+    <div class="mt-5 overflow-hidden">
       <RouterView/>
     </div>
 

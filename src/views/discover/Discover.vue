@@ -9,6 +9,7 @@
 </template>
 
 <script setup lang="ts">
+import {ref} from "vue"
 import Personalized from "@/views/discover/Personalized.vue";
 import PersonalizedNewSong from "@/views/discover/PersonalizedNewSong.vue";
 import Banner from "@/components/common/Banner.vue";

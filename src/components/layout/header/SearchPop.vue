@@ -1,8 +1,9 @@
 <template>
-  <el-popover popper-style="max-width:auto;padding:0;" v-model:visible="showSearchView" width="250px">
+  <el-popover popper-style="max-width:auto;padding:0;" trigger="click" v-model:visible="showSearchView" width="250px">
     <template #reference>
       <ElInput placeholder="搜索音乐、MV、歌单"
                :prefix-icon="Search"
+               ref="searchRef"
                clearable
                @input="searchInput"
                v-model="searchKeyword"
@@ -17,7 +18,7 @@
             <div>
               <div v-for="(item,index) in searchHot" :key="item.searchWord"
                    class="py-2.5 px-2.5 hover-text cursor-pointer flex justify-between items-center text-xs"
-                   @click="hotClick(item.searchWord)">
+                   @click.stop="hotClick(item.searchWord)">
                 <div>
                   <span class="mr-1">{{ index + 1 }}.</span>
                   <span>{{ item.searchWord }}</span>
@@ -43,14 +44,13 @@ import {useSearchHotDetail} from "@/utils/api";
 
 import {debounce} from 'lodash'
 import SearchSuggest from "@/components/layout/header/SearchSuggest.vue";
-
+const searchRef = ref<HTMLInputElement>()
 const {showSearchView, searchKeyword, showHot} = storeToRefs(useSearchStore())
 const {suggest} = useSearchStore()
 
 const hotClick = (text: string) => {
   searchKeyword.value = text
   suggest()
-  showSearchView.value = true
 }
 
 const searchInput = debounce((value: string | number) => suggest(), 500, {'maxWait': 1000})
