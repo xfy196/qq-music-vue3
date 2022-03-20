@@ -34,7 +34,7 @@ const {duration, currentTime, onSliderInput, onSliderChange} = toRefs(usePlayerS
       @apply opacity-0 transition-opacity;
       width: 10px;
       height: 10px;
-      top: -10.5px;
+      top: -8.5px;
     }
 
     &:hover {
