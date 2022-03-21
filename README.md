@@ -16,8 +16,8 @@
 ## 本地安装
 
 ```
-git clone https://github.com/SmallRuralDog/vue3-music.git
-cd vue3-music
+git clone https://github.com/xfy196/qq-music-vue3.git
+cd qq-music-vue3
 yarn
 yarn run dev
 ```
