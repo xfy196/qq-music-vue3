@@ -11,7 +11,7 @@
         v-for="menu in menuItem.menus"
         :key="menu.key"
         :class="{ active: currentKey === menu.key }"
-        @click="click(menu)"
+        @click="click(toRaw(menu))"
       >
         <IconPark :icon="menu.icon" size="18" :theme="menu.theme" />
         <span class="ml-1">{{ menu.name }}</span>
@@ -21,6 +21,7 @@
 </template>
 
 <script setup lang="ts">
+import {toRaw} from "vue"
 import { userMenu } from "@/components/layout/menu/useMenu";
 import IconPark from "@/components/common/IconPark.vue";
 

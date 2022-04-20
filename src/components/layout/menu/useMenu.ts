@@ -1,4 +1,4 @@
-import { ref, watch } from "vue";
+import { ref, watch} from "vue";
 import {
   Planet,
   Music,
@@ -27,7 +27,7 @@ interface IMenus {
 }
 
 export function userMenu() {
-  const menus: IMenus[] = [
+  const menusAll: IMenus[] = [
     {
       name: "在线音乐",
       menus: [
@@ -87,10 +87,17 @@ export function userMenu() {
       ],
     },
   ];
-  if (!isLogin.value) {
-    menus.splice(1, 1);
-  }
+  const menus = ref<IMenus[]>([])
 
+  watch([isLogin], () => {
+    if (!isLogin.value) {
+      menus.value = menusAll.slice(0, 1);
+    }else {
+      menus.value = menusAll
+    }
+  },  {
+    immediate: true
+  })
   const route = useRoute();
 
   const currentKey = ref(route.meta.menu);
