@@ -1,0 +1,7 @@
+:root {
+    --THEME: var(--USER-THEME-COLOR,  rgba(52,211,153,1));
+    --plyr-color-main: var(--THEME);
+}
+html{
+	--USER-THEME-COLOR:  rgba(52,211,153, 1);
+}

@@ -42,7 +42,7 @@
     </div>
     <div v-if="isLogin" class="grid grid-flow-row grid-cols-3 gap-5 mt-5">
       <div v-for="{ data } in videoList" :key="data.vid">
-        <CoverPlay :onPlay="onPlay" :pic-url="data.coverUrl" video />
+        <CoverPlay :onPlay="onPlay.bind(null, data)" :pic-url="data.coverUrl" video />
       </div>
     </div>
     <div class="mt-4 w-full" v-if="!isLogin">
@@ -70,10 +70,11 @@ import { Right } from "@icon-park/vue-next";
 import { useVideoStore } from "@/stores/video";
 import { onMounted, ref, toRefs } from "vue";
 import IconPark from "@/components/common/IconPark.vue";
-import type { Video } from "@/models/video";
+import type { Video, VideoData } from "@/models/video";
 import { useVideoGroup } from "@/utils/api";
 import CoverPlay from "@/components/common/CoverPlay.vue";
 import { useUserStore } from "@/stores/user";
+import {useRouter} from "vue-router"
 
 const { videoGroup } = toRefs(useVideoStore());
 const { getVideoGroup } = useVideoStore();
@@ -81,6 +82,7 @@ const userStore = useUserStore();
 const { isLogin } = storeToRefs(userStore);
 const loading = ref<boolean>(false);
 const videoList = ref<Video[]>([]);
+const router = useRouter()
 const getData = async () => {
   try {
     loading.value = true;
@@ -93,8 +95,13 @@ const getData = async () => {
 };
 
 // 播放视频
-const onPlay = () => {
-  console.log("播放");
+const onPlay = (video: VideoData) => {
+  router.push({
+    path: `/video/detail`,
+    query: {
+      id: video.vid
+    }
+  })
 };
 
 onMounted(() => {

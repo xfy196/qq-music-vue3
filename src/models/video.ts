@@ -5,6 +5,20 @@ export interface Video {
 	extAlg?: any;
 	data: VideoData;
 }
+export interface VideoDetail {
+	title: string,
+	description: string,
+	vid: string
+}
+export interface VideoUrl {
+	id: string,
+	url: string,
+	size: number,
+	validityTime: number,
+	needPay: boolean,
+	payInfo: any,
+	r: number
+}
 export interface VideoDataResolutions {
 	resolution: number;
 	size: number;

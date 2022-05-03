@@ -17,7 +17,9 @@ import type { Album } from "@/models/album";
 import type {
   PersonalizedPrivateContent,
   Video,
+  VideoDetail,
   VideoGroup,
+  VideoUrl,
 } from "@/models/video";
 import type { SearchHotDetail, SearchSuggest } from "@/models/search";
 import type { MvUrl } from "@/models/mv";
@@ -222,6 +224,19 @@ export async function useVideoGroup(id?: number, offset?: number) {
     }
   );
   return datas;
+}
+
+export async function useVideoDetail(vid: string) {
+  const { data } = await http.get<{ data: VideoDetail }>("video/detail", {
+    id: vid,
+  });
+  return data;
+}
+export async function useVideoUrl(vid: string) {
+  const { urls } = await http.get<{ urls: VideoUrl[] }>("video/url", {
+    id: vid,
+  });
+  return urls;
 }
 
 export async function useAlbum(id: number) {

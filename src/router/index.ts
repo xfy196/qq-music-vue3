@@ -94,6 +94,16 @@ const router = createRouter({
           },
         },
         {
+          path: "video/detail",
+          name: "video-detail",
+          component: () => import("@/views/video/video-detail.vue"),
+          meta: {
+            menu: "video",
+            title: "视频",
+            keepAlive: true,
+          },
+        },
+        {
           path: "dj",
           name: "dj",
           component: () => import("@/views/dj/DJ.vue"),
