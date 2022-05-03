@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center cursor-pointer hover-text">
-    <ElAvatar :src="profile.avatarUrl" size="small" round class="bg-gray-200"></ElAvatar>
+    <ElAvatar :src="profile && profile.avatarUrl" size="small" round class="bg-gray-200"></ElAvatar>
     <span v-if="!isLogin" class="text-xs ml-1.5" @click="showLogin=true">点击登录</span>
     <span v-else class="text-xs ml-1.5">{{profile.nickname}}</span>
   </div>
@@ -16,24 +16,20 @@
 <script setup lang="ts">
 import {Lock, Phone} from '@icon-park/vue-next'
 import {useRouter} from "vue-router";
-import {ref, onMounted} from "vue";
+import {ref} from "vue";
 import {useUserStore} from "@/stores/user"
 import {storeToRefs} from "pinia"
 const router = useRouter()
 const phone = ref('')
 const password = ref('')
 
-const {login, checkLogin} = useUserStore()
+const {login} = useUserStore()
 const {showLogin, profile, isLogin} = storeToRefs(useUserStore())
+
 
 const loginSubmit = () => {
   login(phone.value, password.value)
 }
-
-onMounted(() => {
-  checkLogin()
-})
-
 
 </script>
 
