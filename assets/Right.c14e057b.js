@@ -1,1 +1,0 @@
-import{I as i}from"./IconPark.e2a46cef.js";import{k as t}from"./vendor.e8d640e7.js";var n=i("right",!0,function(e){return t("svg",{width:e.size,height:e.size,viewBox:"0 0 48 48",fill:"none"},[t("path",{d:"M19 12L31 24L19 36",stroke:e.colors[0],"stroke-width":e.strokeWidth,"stroke-linecap":e.strokeLinecap,"stroke-linejoin":e.strokeLinejoin},null)])});export{n as R};
