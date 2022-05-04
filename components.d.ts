@@ -34,6 +34,7 @@ declare module 'vue' {
     PlayerVolumeSlider: typeof import('./src/components/layout/footer/PlayerVolumeSlider.vue')['default']
     PlayList: typeof import('./src/components/layout/playList/PlayList.vue')['default']
     PlayListSongItem: typeof import('./src/components/layout/playList/PlayListSongItem.vue')['default']
+    Popover: typeof import('element-plus/es')['ElPopoverDirective']
     SearchPop: typeof import('./src/components/layout/header/SearchPop.vue')['default']
     SearchSuggest: typeof import('./src/components/layout/header/SearchSuggest.vue')['default']
     SongListItem: typeof import('./src/components/common/SongListItem.vue')['default']

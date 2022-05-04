@@ -8,7 +8,10 @@ export interface Video {
 export interface VideoDetail {
 	title: string,
 	description: string,
-	vid: string
+	vid: string,
+	width: number,
+	height: number,
+	coverUrl: string
 }
 export interface VideoUrl {
 	id: string,

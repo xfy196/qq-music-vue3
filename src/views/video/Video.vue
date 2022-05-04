@@ -1,17 +1,27 @@
 <template>
   <div v-loading="loading" class="p-5 video-page">
     <div class="flex items-center justify-between">
+      <el-button
+        round
+        v-popover="popoverRef"
+        v-click-outside="onClickOutside"
+        @click="categoryVisible = true"
+        class="button-outline px-5"
+      >
+        <span class="mr-2">全部视频</span>
+        <IconPark :icon="Right" />
+      </el-button>
       <el-popover
         width="60%"
         placement="bottom-start"
         popper-style="padding:0;"
+        ref="popoverRef"
+        trigger="click"
+        virtual-triggering
+        persistent
+        v-model:visible="categoryVisible"
       >
-        <template #reference>
-          <button class="button-outline px-5">
-            <span class="mr-2">全部视频</span>
-            <IconPark :icon="Right" />
-          </button>
-        </template>
+        <template #reference> </template>
         <div>
           <div class="text-xl pt-5 pl-5">全部视频</div>
           <div class="h-96 py-5 pl-5">
@@ -21,6 +31,7 @@
                   class="hover-text"
                   v-for="item in videoGroup"
                   :key="item.id"
+                  @click.stop="handleSelectGroup(item)"
                 >
                   {{ item.name }}
                 </div>
@@ -33,6 +44,7 @@
       <div class="text-xs flex gap-x-4">
         <div
           class="hover-text"
+          @click.stop="handleSelectGroup(item)"
           v-for="item in videoGroup.slice(0, 8)"
           :key="item.id"
         >
@@ -42,7 +54,11 @@
     </div>
     <div v-if="isLogin" class="grid grid-flow-row grid-cols-3 gap-5 mt-5">
       <div v-for="{ data } in videoList" :key="data.vid">
-        <CoverPlay :onPlay="onPlay.bind(null, data)" :pic-url="data.coverUrl" video />
+        <CoverPlay
+          :onPlay="onPlay.bind(null, data)"
+          :pic-url="data.coverUrl"
+          video
+        />
       </div>
     </div>
     <div class="mt-4 w-full" v-if="!isLogin">
@@ -68,21 +84,24 @@
 import { storeToRefs } from "pinia";
 import { Right } from "@icon-park/vue-next";
 import { useVideoStore } from "@/stores/video";
-import { onMounted, ref, toRefs } from "vue";
+import { onMounted, ref, toRefs, unref } from "vue";
 import IconPark from "@/components/common/IconPark.vue";
-import type { Video, VideoData } from "@/models/video";
+import type { Video, VideoData, VideoGroup } from "@/models/video";
 import { useVideoGroup } from "@/utils/api";
 import CoverPlay from "@/components/common/CoverPlay.vue";
 import { useUserStore } from "@/stores/user";
-import {useRouter} from "vue-router"
+import { useRouter } from "vue-router";
+import { ClickOutside as vClickOutside } from "element-plus";
 
+const categoryVisible = ref<boolean>(false);
 const { videoGroup } = toRefs(useVideoStore());
 const { getVideoGroup } = useVideoStore();
 const userStore = useUserStore();
 const { isLogin } = storeToRefs(userStore);
 const loading = ref<boolean>(false);
 const videoList = ref<Video[]>([]);
-const router = useRouter()
+const popoverRef = ref();
+const router = useRouter();
 const getData = async () => {
   try {
     loading.value = true;
@@ -94,14 +113,31 @@ const getData = async () => {
   }
 };
 
+// 选择不同分类请求不同的数据
+const handleSelectGroup = async (videoGroup: VideoGroup) => {
+  try {
+    categoryVisible.value = false;
+    loading.value = true;
+    videoList.value = await useVideoGroup(videoGroup.id);
+  } catch (error) {
+    //
+  } finally {
+    loading.value = false;
+  }
+};
+
+const onClickOutside = () => {
+  categoryVisible.value = false;
+};
+
 // 播放视频
 const onPlay = (video: VideoData) => {
   router.push({
     path: `/video/detail`,
     query: {
-      id: video.vid
-    }
-  })
+      id: video.vid,
+    },
+  });
 };
 
 onMounted(() => {
