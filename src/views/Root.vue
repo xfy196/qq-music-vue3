@@ -1,16 +1,21 @@
 <template>
-  <div class="w-screen h-screen flex items-stretch overflow-hidden">
-    <div class="w-56 h-screen flex-shrink-0">
+  <div class="flex items-stretch w-screen h-screen overflow-hidden">
+    <div class="flex-shrink-0 w-56 h-screen">
       <Menu />
     </div>
-    <div class="flex-1 flex flex-col">
+    <div class="flex flex-col flex-1">
       <div class="h-14">
         <Header />
       </div>
       <div class="flex-1 overflow-hidden">
         <ElScrollbar>
           <div class="container mx-auto">
-            <RouterView />
+            <Suspense>
+              <template #default>
+                <RouterView />
+              </template>
+              <template #fallback> Loading... </template>
+            </Suspense>
           </div>
         </ElScrollbar>
       </div>
@@ -28,7 +33,6 @@ import Menu from "@/components/layout/menu/Menu.vue";
 import Header from "@/components/layout/header/Header.vue";
 import Footer from "@/components/layout/footer/Footer.vue";
 import PlayList from "@/components/layout/playList/PlayList.vue";
-
 </script>
 
 <style lang="scss"></style>

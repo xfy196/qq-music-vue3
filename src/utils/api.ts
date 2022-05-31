@@ -26,6 +26,13 @@ import type { MvUrl } from "@/models/mv";
 import type { PlayListHot } from "@/models/playlist_hot";
 import type { UserProfile } from "@/models/user";
 
+// 退出登录
+export async function useLogout(){
+  return http.get<{
+    code: number,
+  }>('/logout')
+}
+
 export async function useLogin(phone: string, md5_password: string) {
   return http.get<{
     code: number;

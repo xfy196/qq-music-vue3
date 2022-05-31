@@ -1,6 +1,11 @@
 <template>
-  <RouterView v-if="isInit" />
-  <Host v-else />
+  <Suspense>
+    <template #default>
+      <RouterView v-if="isInit" />
+      <Host v-else />
+    </template>
+    <template #fallback> <h1>Loading...</h1> </template>
+  </Suspense>
 </template>
 
 <script setup lang="ts">

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import type { UserProfile } from "@/models/user";
-import { useLogin, useLoginStatus } from "@/utils/api";
+import { useLogin, useLoginStatus, useLogout } from "@/utils/api";
 import { MD5 } from "crypto-js";
 import jscookie from "js-cookie";
 import { ElMessage } from "element-plus";
@@ -26,6 +26,17 @@ export const useUserStore = defineStore("user", {
           message: "登录成功",
           duration: 2000,
         });
+      }
+    },
+    async logout(){
+      let res = await useLogout()
+      if(res.code !== 200){
+        ElMessage({
+          type: 'error',
+          message: "服务异常"
+        })
+      }else {
+        location.reload()
       }
     },
     async checkLogin() {
