@@ -1,6 +1,6 @@
 <template>
   <div class="relative p-5 video-page">
-  <div v-loading="loading" class="absolute w-full h-60"></div>
+  <div v-if="loading" v-loading="loading" class="absolute w-full h-60"></div>
     <div class="flex items-center justify-between">
       <el-button
         round

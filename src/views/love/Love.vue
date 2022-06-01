@@ -9,7 +9,7 @@
         </span>
       </div>
     </div>
-    <div v-loading="loading" class="absolute w-full h-60"></div>
+    <div v-loading="loading" v-if="loading" class="absolute w-full h-60"></div>
     <div  class="px-3">
       <template v-for="(song) in songs" :key="song.id">
         <song-list-item :show-ar-name="false" show-al-name :song="song"/>
