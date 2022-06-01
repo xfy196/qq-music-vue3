@@ -26,6 +26,30 @@ import type { MvUrl } from "@/models/mv";
 import type { PlayListHot } from "@/models/playlist_hot";
 import type { UserProfile } from "@/models/user";
 
+
+
+// 设置喜欢的歌曲
+export async function useLikeSong(id: number | string, like: true) {
+  return http.get<{
+    code: number,
+    songs: object[],
+    playlistid: number
+  }>(`/like`, {
+    id,
+    like
+  })
+}
+
+// 获取我喜欢的音乐列表
+export async function useLikeList(uid: number | string){
+  return http.get<{
+    code: number,
+    ids: number[],
+  }>('/likelist', {
+    uid
+  })
+}
+
 // 退出登录
 export async function useLogout(){
   return http.get<{
@@ -62,6 +86,13 @@ export async function useDetail(id: number) {
     ids: id,
   });
   return songs.first();
+}
+
+export async function useDetails(ids: number[]) {
+  const data = await http.get<{ songs: Song[], code: number}>("/song/detail", {
+    ids: ids.join(","),
+  });
+  return data;
 }
 
 export async function useBanner() {

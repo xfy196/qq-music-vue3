@@ -10,12 +10,7 @@
       <div class="flex-1 overflow-hidden">
         <ElScrollbar>
           <div class="container mx-auto">
-            <Suspense>
-              <template #default>
-                <RouterView />
-              </template>
-              <template #fallback> Loading... </template>
-            </Suspense>
+            <RouterView />
           </div>
         </ElScrollbar>
       </div>

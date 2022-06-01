@@ -1,12 +1,13 @@
 <template>
-  <div v-loading="loading" class="p-5 video-page">
+  <div class="relative p-5 video-page">
+  <div v-loading="loading" class="absolute w-full h-60"></div>
     <div class="flex items-center justify-between">
       <el-button
         round
         v-popover="popoverRef"
         v-click-outside="onClickOutside"
         @click="categoryVisible = true"
-        class="button-outline px-5"
+        class="px-5 button-outline"
       >
         <span class="mr-2">全部视频</span>
         <IconPark :icon="Right" />
@@ -23,10 +24,10 @@
       >
         <template #reference> </template>
         <div>
-          <div class="text-xl pt-5 pl-5">全部视频</div>
-          <div class="h-96 py-5 pl-5">
+          <div class="pt-5 pl-5 text-xl">全部视频</div>
+          <div class="py-5 pl-5 h-96">
             <ElScrollbar>
-              <div class="text-xs gap-5 grid grid-flow-row grid-cols-5">
+              <div class="grid grid-flow-row grid-cols-5 gap-5 text-xs">
                 <div
                   class="hover-text"
                   v-for="item in videoGroup"
@@ -41,7 +42,7 @@
         </div>
       </el-popover>
 
-      <div class="text-xs flex gap-x-4">
+      <div class="flex text-xs gap-x-4">
         <div
           class="hover-text"
           @click.stop="handleSelectGroup(item)"
@@ -61,7 +62,7 @@
         />
       </div>
     </div>
-    <div class="mt-4 w-full" v-if="!isLogin">
+    <div class="w-full mt-4" v-if="!isLogin">
       <iframe
         class="w-full"
         height="500"
