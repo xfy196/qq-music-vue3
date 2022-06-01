@@ -12,4 +12,5 @@ export const Pages = {
     album: 'album',
     video: 'video',
     dj: 'dj',
+    love: 'love'
 }

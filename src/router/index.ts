@@ -118,6 +118,11 @@ const router = createRouter({
           name: Pages.mvDetail,
           component: () => import("@/views/mv/mvDetail.vue"),
         },
+        {
+          path: Pages.love,
+          name: Pages.love,
+          component: () => import("@/views/love/Love.vue"),
+        },
       ],
     },
   ],
