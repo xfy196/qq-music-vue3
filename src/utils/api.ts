@@ -81,16 +81,9 @@ export async function useSongUrl(id: number) {
   return data.first();
 }
 
-export async function useDetail(id: number) {
-  const { songs } = await http.get<{ songs: Song[] }>("/song/detail", {
-    ids: id,
-  });
-  return songs.first();
-}
-
-export async function useDetails(ids: number[]) {
-  const data = await http.get<{ songs: Song[], code: number}>("/song/detail", {
-    ids: ids.join(","),
+export async function useDetail(ids: string | number) {
+  const data = await http.get<{ songs: Song[], code: number }>("/song/detail", {
+    ids,
   });
   return data;
 }

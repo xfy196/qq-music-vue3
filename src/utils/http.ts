@@ -30,12 +30,12 @@ axios.interceptors.response.use(
     if (response.status === 301) {
       ElMessage({
         type: "warning",
-        message: response.data.message,
+        message: response.data.message || response.data.msg,
       });
     } else if (!response.status.toString().startsWith('2')) {
       ElMessage({
         type: "error",
-        message: response.data.message,
+        message: response.data.message || response.data.msg,
       });
     }
     return Promise.reject(error.response);

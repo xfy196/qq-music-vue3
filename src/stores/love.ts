@@ -1,13 +1,15 @@
 import type { Song } from "@/models/song";
 import { ElMessage } from "element-plus";
 import { defineStore } from "pinia";
-import { useDetails, useLikeList } from "../utils/api";
+import { useDetail, useLikeList } from "../utils/api";
 import { useUserStore } from "./user";
 export const useLoveStore = defineStore("love", {
   state: (): {
-      songs: Song[]
+      songs: Song[],
+      ids: number[]
   } => ({
     songs: [],
+    ids: []
   }),
   actions: {
     async getLoveList() {
@@ -15,7 +17,8 @@ export const useLoveStore = defineStore("love", {
       let { code, ids } = await useLikeList(userStore.profile.userId);
       if (code === 200) {
         try {
-            let details = await useDetails(ids)
+            this.ids = ids
+            let details = await useDetail(ids.join(','))
             if(details.code === 200){
                 this.songs = details.songs
             }

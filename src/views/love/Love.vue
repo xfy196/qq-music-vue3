@@ -12,7 +12,7 @@
     <div v-loading="loading" v-if="loading" class="absolute w-full h-60"></div>
     <div  class="px-3">
       <template v-for="(song) in songs" :key="song.id">
-        <song-list-item :show-ar-name="false" show-al-name :song="song"/>
+        <song-list-item isLike :show-ar-name="false" show-al-name :song="song"/>
       </template>
     </div>
   </div>

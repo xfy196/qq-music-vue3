@@ -128,7 +128,10 @@ export const usePlayerStore = defineStore({
       }
     },
     async songDetail() {
-      this.song = await useDetail(this.id);
+      let data = await useDetail(this.id);
+      if(data.code === 200){
+        this.song = data.songs.first()
+      }
 
       this.pushPlayList(false, this.song);
     },
