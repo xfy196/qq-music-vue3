@@ -5,6 +5,7 @@ import type { Song } from "@/models/song";
 import type { SongUrl } from "@/models/song_url";
 import { ElMessage } from "element-plus";
 import "element-plus/theme-chalk/el-message.css";
+import { useLoveStore } from "./love";
 const KEYS = {
   volume: "PLAYER-VOLUME",
 };
@@ -132,8 +133,9 @@ export const usePlayerStore = defineStore({
       if(data.code === 200){
         this.song = data.songs.first()
       }
-
       this.pushPlayList(false, this.song);
+      let loveStore = useLoveStore()
+      await loveStore.getLoveIds()
     },
     //重新播放
     rePlay() {

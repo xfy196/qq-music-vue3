@@ -10,9 +10,14 @@
       </div>
     </div>
     <div v-loading="loading" v-if="loading" class="absolute w-full h-60"></div>
-    <div  class="px-3">
-      <template v-for="(song) in songs" :key="song.id">
-        <song-list-item isLike :show-ar-name="false" show-al-name :song="song"/>
+    <div class="px-3">
+      <template v-for="song in songs" :key="song.id">
+        <song-list-item
+          :trackSong="true"
+          :show-ar-name="false"
+          show-al-name
+          :song="song"
+        />
       </template>
     </div>
   </div>
@@ -26,7 +31,11 @@ import { ref } from "vue";
 const loveStore = useLoveStore();
 const loading = ref<boolean>(true);
 const { songs } = storeToRefs(loveStore);
-loveStore.getLoveList().finally(() => {
-  loading.value = false;
-});
+loveStore
+  .getLoveIds()
+  .then(() => {
+    loveStore.getLoveList().finally(() => {
+      loading.value = false;
+    });
+  });
 </script>

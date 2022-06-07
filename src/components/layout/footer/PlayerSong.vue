@@ -22,6 +22,7 @@
       </div>
       <div class="flex gap-x-3 text-main">
         <IconPark
+        @click.stop="loveStore.setLike(song.id, !hasLike)"
           :icon="Like"
           :theme="hasLike ? 'filled' : 'outline'"
           :fill="hasLike ? '#10b981' : '#6b7280'"

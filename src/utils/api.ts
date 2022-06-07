@@ -26,13 +26,23 @@ import type { MvUrl } from "@/models/mv";
 import type { PlayListHot } from "@/models/playlist_hot";
 import type { UserProfile } from "@/models/user";
 
-
-
-// 设置喜欢的歌曲
-export async function useLikeSong(id: number | string, like: true) {
+// 登录完成后获取用户收藏的歌单
+export async function useUserPlayList(uid: string | number) {
   return http.get<{
     code: number,
-    songs: object[],
+    more: boolean,
+    playlist: PlayListDetail[],
+    version: string
+  }>(`/user/playlist`, {
+    uid
+  });
+}
+
+// 设置喜欢的歌曲
+export async function useLikeSong(id: number | string, like: boolean) {
+  return http.get<{
+    code: number,
+    songs: Song[],
     playlistid: number
   }>(`/like`, {
     id,

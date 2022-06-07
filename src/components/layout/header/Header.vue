@@ -3,14 +3,14 @@
     <div class="flex items-center pl-5">
       <IconPark :icon="Left" :size="iconSize" :stroke-width="2" class="icon-button" @click="router.back()"/>
       <IconPark :icon="Right" :size="iconSize" :stroke-width="2" class="icon-button" @click="router.go(1)"/>
-      <div class="search no-drag ml-2">
+      <div class="ml-2 search no-drag">
         <SearchPop/>
       </div>
     </div>
     <div class="flex items-center mr-5">
       <UserInfo class="mr-2"/>
       <IconPark :icon="Mail" :stroke-width="2" class="icon-button"/>
-      <IconPark :icon="Platte" :stroke-width="2" class="icon-button" @click="changeThemeMode"/>
+      <!-- <IconPark :icon="Platte" :stroke-width="2" class="icon-button" @click="changeThemeMode"/> -->
       <IconPark :icon="HamburgerButton" :stroke-width="2" class="icon-button"/>
     </div>
   </div>
@@ -24,7 +24,6 @@ import UserInfo from "@/components/layout/header/UserInfo.vue";
 import {useSearchStore} from "@/stores/search";
 import {storeToRefs} from "pinia";
 import SearchPop from "@/components/layout/header/SearchPop.vue";
-import {ref} from "vue";
 
 const iconSize = 22;
 
@@ -32,13 +31,13 @@ const router = useRouter();
 
 const {showSearchView, searchKeyword} = storeToRefs(useSearchStore())
 
-const mode = ref(false)
+// const mode = ref(false)
 
-const changeThemeMode = () => {
-  window.document.documentElement.setAttribute('data-theme', mode.value ? 'dark' : 'light')
+// const changeThemeMode = () => {
+//   window.document.documentElement.setAttribute('data-theme', mode.value ? 'dark' : 'light')
 
-  mode.value = !mode.value;
-}
+//   mode.value = !mode.value;
+// }
 
 </script>
 <style lang="scss" scoped>

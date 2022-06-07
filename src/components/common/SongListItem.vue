@@ -7,6 +7,7 @@
     <div class="flex items-center justify-between flex-1 flex-shrink-0 pr-5">
       <div class="flex items-center flex-1 flex-shrink-0 w-10">
         <IconPark
+          @click.stop="setLike(song.id, !isLike, trackSong)"
           :icon="Like"
           :theme="isLike ? 'filled' : 'outline'"
           :fill="isLike ? '#10b981' : '#6b7280'"
@@ -99,17 +100,22 @@ import type { Song } from "@/models/song";
 import { useRouter } from "vue-router";
 import { Pages } from "@/router/pages";
 import { storeToRefs } from "pinia";
+import { useLoveStore } from "@/stores/love";
+import { computed } from "vue";
 
 const router = useRouter();
 
-defineProps<{
+const props = defineProps<{
   song: Song;
   showArName?: boolean;
   showAlName?: boolean;
-  isLike?: boolean;
+  trackSong?: boolean;
 }>();
 const { play } = usePlayerStore();
+const { setLike } = useLoveStore();
+const { ids } = storeToRefs(useLoveStore());
 const { id } = storeToRefs(usePlayerStore());
+const isLike = computed(() => ids.value.includes(props.song.id));
 </script>
 
 <style lang="scss" scoped>
