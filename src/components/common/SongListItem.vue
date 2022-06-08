@@ -17,6 +17,12 @@
         <div class="truncate" style="max-width: 75%">
           <small>{{ song.name }}</small>
         </div>
+        <div
+            v-if="song.fee === 1"
+            class="bg-red-500 text-xs text-white rounded px-0.5 scale-75"
+          >
+            试听
+          </div>
         <IconPark
           v-if="song.mv > 0"
           class="ml-2 text-orange-400 cursor-pointer"
@@ -35,7 +41,13 @@
             @click="play(song.id)"
           />
           <IconPark title="添加到" :icon="Add" size="16" class="hover-text" />
-          <IconPark title="下载" :icon="DownTwo" size="16" class="hover-text" />
+          <IconPark
+            @click.stop="downloadSong"
+            title="下载"
+            :icon="DownTwo"
+            size="16"
+            class="hover-text"
+          />
           <IconPark
             title="更多操作"
             :icon="MoreTwo"
@@ -102,6 +114,9 @@ import { Pages } from "@/router/pages";
 import { storeToRefs } from "pinia";
 import { useLoveStore } from "@/stores/love";
 import { computed } from "vue";
+import { useSongUrl } from "@/utils/api";
+import { downloadFile } from "@/utils/download";
+import { ElMessage } from "element-plus";
 
 const router = useRouter();
 
@@ -116,6 +131,23 @@ const { setLike } = useLoveStore();
 const { ids } = storeToRefs(useLoveStore());
 const { id } = storeToRefs(usePlayerStore());
 const isLike = computed(() => ids.value.includes(props.song.id));
+
+// 下载歌曲
+const downloadSong = async () => {
+  let song = await useSongUrl(props.song.id);
+  if (song.code === 200) {
+    downloadFile(
+      song.url,
+      props.song.name,
+      song.type.startsWith(".") ? song.type : "." + song.type
+    );
+  } else {
+    ElMessage({
+      type: "error",
+      message: "下载失败",
+    });
+  }
+};
 </script>
 
 <style lang="scss" scoped>
