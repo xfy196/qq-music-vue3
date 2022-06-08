@@ -6,6 +6,8 @@ export const downloadFile = (
   filename?: string,
   suffix?: string
 ) => {
+  url = url.replace(/^http:\/\//, "https://");
+  console.log(url);
   fetch(url).then((res) => {
     res.blob().then((blob) => {
       const link = URL.createObjectURL(blob);
