@@ -115,9 +115,10 @@ export default class Lyric {
         ? this.lines[this.curLineIndex - 1].time
         : 0;
       delay = line.time - preTime;
+
     }
     this.timer = setTimeout(() => {
-      this._callHandler(this.curLineIndex++);
+      this._callHandler(++this.curLineIndex);
       if (
         this.curLineIndex < this.lines.length &&
         this.state === STATE_PLAYING
