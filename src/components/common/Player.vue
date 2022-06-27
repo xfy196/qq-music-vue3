@@ -62,7 +62,7 @@ const isScroll = ref<boolean>(false)
 const backgroundVar = ref<any>({
   background: `url(${song.value.al.picUrl})`,
 });
-const lyricRefs = ref<HTMLElement[]>([])
+const lyricRefs = ref<any>([])
 watch(song, () => {
   backgroundVar.value = {
     "background-image": `url(${song.value.al.picUrl})`,
@@ -79,7 +79,7 @@ const handleLyric = ({ lineNum, txt }: { lineNum: number; txt: string }) => {
   currentPlayingLyric.value = txt;
   currentLineNum.value = lineNum;
 };
-const setLyricRefs = (el: HTMLElement) => {
+const setLyricRefs = (el: any) => {
   lyricRefs.value.push(el)
 }
 watchEffect(() => {
