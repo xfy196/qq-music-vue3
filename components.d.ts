@@ -33,6 +33,7 @@ declare module 'vue' {
     Menu: typeof import('./src/components/layout/menu/Menu.vue')['default']
     MenuList: typeof import('./src/components/layout/menu/MenuList.vue')['default']
     MoreText: typeof import('./src/components/common/MoreText.vue')['default']
+    Player: typeof import('./src/components/common/Player.vue')['default']
     PlayerAction: typeof import('./src/components/layout/footer/PlayerAction.vue')['default']
     PlayerController: typeof import('./src/components/layout/footer/PlayerController.vue')['default']
     PlayerSlider: typeof import('./src/components/layout/footer/PlayerSlider.vue')['default']

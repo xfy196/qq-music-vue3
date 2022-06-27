@@ -25,6 +25,7 @@ import type { SearchHotDetail, SearchSuggest } from "@/models/search";
 import type { MvUrl } from "@/models/mv";
 import type { PlayListHot } from "@/models/playlist_hot";
 import type { UserProfile } from "@/models/user";
+import type { ILyric } from "@/models/lyric";
 
 
 // 登录完成后获取用户收藏的歌单
@@ -90,6 +91,17 @@ export async function useLoginStatus() {
 export async function useSongUrl(id: number) {
   const { data } = await http.get<{ data: SongUrl[] }>("/song/url", { id: id });
   return data.first();
+}
+
+// 获取歌曲的歌词信息
+export async function useLyric(id:number | string) {
+  const {lrc} = await http.get<{
+    code: number,
+    lrc: ILyric
+  }>("/lyric", {
+    id
+  })
+  return lrc
 }
 
 export async function useDetail(ids: string | number) {

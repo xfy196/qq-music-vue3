@@ -33,6 +33,7 @@
       <el-input
         size="large"
         class="mt-5"
+        type="password"
         placeholder="登录密码"
         :prefix-icon="Lock"
         v-model="password"

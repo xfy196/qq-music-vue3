@@ -14,8 +14,14 @@ export const useLoveStore = defineStore("love", {
   actions: {
     async getLoveIds() {
       let userStore = useUserStore();
+      if(!userStore.isLogin){
+        return;
+      }
       let { code, ids } = await useLikeList(userStore.profile.userId);
       if (code === 200) {
+        if(this.ids.join() === ids.join()){
+          return Promise.reject()
+        }
         this.ids = ids;
       }
     },

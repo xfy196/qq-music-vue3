@@ -1,11 +1,12 @@
 import { defineStore, storeToRefs } from "pinia";
-import { useDetail, useSongUrl } from "@/utils/api";
+import { useDetail, useLyric, useSongUrl } from "@/utils/api";
 import { onMounted, onUnmounted, watch } from "vue";
 import type { Song } from "@/models/song";
 import type { SongUrl } from "@/models/song_url";
 import { ElMessage } from "element-plus";
 import "element-plus/theme-chalk/el-message.css";
 import { useLoveStore } from "./love";
+import type {ILyric} from "@/models/lyric"
 const KEYS = {
   volume: "PLAYER-VOLUME",
 };
@@ -13,6 +14,7 @@ const KEYS = {
 export const usePlayerStore = defineStore({
   id: "player",
   state: () => ({
+    lrc: {} as ILyric,
     audio: new Audio(),
     loopType: 0, //循环模式 0 单曲循环 1 列表循环 2随机播放
     volume: localStorage.getItem(KEYS.volume)?.toInt() || 60, //音量
@@ -134,8 +136,14 @@ export const usePlayerStore = defineStore({
         this.song = data.songs.first()
       }
       this.pushPlayList(false, this.song);
+      // 调用歌词接口
+      await this.getLyric()
       let loveStore = useLoveStore()
       await loveStore.getLoveIds()
+    },
+    async getLyric() {
+      let lrc = await useLyric(this.id)
+      this.lrc = lrc
     },
     //重新播放
     rePlay() {

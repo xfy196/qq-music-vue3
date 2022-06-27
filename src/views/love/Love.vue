@@ -37,5 +37,7 @@ loveStore
     loveStore.getLoveList().finally(() => {
       loading.value = false;
     });
+  }).catch(() => {
+    loading.value = false;
   });
 </script>

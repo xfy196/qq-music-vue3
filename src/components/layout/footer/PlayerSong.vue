@@ -1,5 +1,5 @@
 <template>
-  <div class="flex player-song">
+  <div @click.stop="handleShowPlayer" class="flex player-song">
     <img
       alt=""
       class="rounded w-11 h-11"
@@ -35,23 +35,27 @@
           size="18"
           :stroke-width="3"
           class="text-slate-400 hover-text"
+          @click.stop=""
         />
         <IconPark
           :icon="MoreTwo"
           size="18"
           :stroke-width="3"
           class="text-slate-400 hover-text"
+          @click.stop=""
         />
         <el-badge :value="1000" :max="999" class="badge">
           <IconPark
             :icon="Comment"
             size="18"
             :stroke-width="3"
+          @click.stop=""
             class="text-slate-400 hover-text"
           />
         </el-badge>
       </div>
     </div>
+    <Player v-if="song.id" v-model:visible="playerVisible"/>
   </div>
 </template>
 
@@ -62,12 +66,20 @@ import { useLoveStore } from "@/stores/love";
 import { OpticalDisk } from "@/assets/img";
 import IconPark from "@/components/common/IconPark.vue";
 import { storeToRefs } from "pinia";
-import { computed } from "@vue/runtime-core";
-
-const { song, songUrl } = storeToRefs(usePlayerStore());
+import { computed, ref } from "@vue/runtime-core";
+import Player from "@/components/common/Player.vue"
+const { song, songUrl, id } = storeToRefs(usePlayerStore());
 
 const loveStore = useLoveStore();
 const { ids } = storeToRefs(loveStore);
+
+const playerVisible = ref<boolean>(false)
+
+const handleShowPlayer = () => {
+  if(id.value !== 0){
+    playerVisible.value = true;
+  }
+}
 
 const hasLike = computed(() => {
   return ids.value.includes(song.value.id);

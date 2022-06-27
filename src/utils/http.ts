@@ -8,10 +8,10 @@ axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use(
   (config: AxiosRequestConfig | any) => {
-    config.params = {
-      ...config.params,
-      t: Date.now(),
-    };
+    // config.params = {
+    //   ...config.params,
+    //   t: Date.now(),
+    // };
 
     return config;
   },
