@@ -6,7 +6,8 @@ import type { SongUrl } from "@/models/song_url";
 import { ElMessage } from "element-plus";
 import "element-plus/theme-chalk/el-message.css";
 import { useLoveStore } from "./love";
-import type {ILyric} from "@/models/lyric"
+import type { ILyric } from "@/models/lyric";
+import type Lyric from "@/utils/lyric-parser";
 const KEYS = {
   volume: "PLAYER-VOLUME",
 };
@@ -14,6 +15,7 @@ const KEYS = {
 export const usePlayerStore = defineStore({
   id: "player",
   state: () => ({
+    lyric: {} as Lyric,
     lrc: {} as ILyric,
     audio: new Audio(),
     loopType: 0, //循环模式 0 单曲循环 1 列表循环 2随机播放
@@ -59,6 +61,9 @@ export const usePlayerStore = defineStore({
     },
   },
   actions: {
+    setLyric(lyric: Lyric) {
+      this.lyric = lyric;
+    },
     init() {
       this.audio.volume = this.volume / 100;
     },
@@ -132,18 +137,18 @@ export const usePlayerStore = defineStore({
     },
     async songDetail() {
       let data = await useDetail(this.id);
-      if(data.code === 200){
-        this.song = data.songs.first()
+      if (data.code === 200) {
+        this.song = data.songs.first();
       }
       this.pushPlayList(false, this.song);
       // 调用歌词接口
-      await this.getLyric()
-      let loveStore = useLoveStore()
-      await loveStore.getLoveIds()
+      await this.getLyric();
+      let loveStore = useLoveStore();
+      await loveStore.getLoveIds();
     },
     async getLyric() {
-      let lrc = await useLyric(this.id)
-      this.lrc = lrc
+      let lrc = await useLyric(this.id);
+      this.lrc = lrc;
     },
     //重新播放
     rePlay() {
